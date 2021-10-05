@@ -17,17 +17,17 @@ def check_win_defender(item,section):
                         age + 1
                 if rtprot_status == "False":
                         if age > 0:
-                                yield Result(state=State.CRIT, summary="RealTime Protection: Disabled(!!), Anti-virus Database: Out-of-Date(!!), AMProductVersion:" + am_productversion + ", AMEngineVersion:" + am_engineversion)
+                                yield Result(state=State.CRIT, summary="RealTime Protection: Disabled(!!), AV database age:" + av_age + " days(!!), AMProductVersion:" + am_productversion + ", AMEngineVersion:" + am_engineversion)
                                 return
                         else:
-                                yield Result(state=State.CRIT, summary="RealTime Protection: Disabled(!!), Anti-virus Database: Up-to-Date, AMProductVersion:" + am_productversion + ", AMEngineVersion:" + am_engineversion)
+                                yield Result(state=State.CRIT, summary="RealTime Protection: Disabled(!!), AV database age:" + av_age + " days, AMProductVersion:" + am_productversion + ", AMEngineVersion:" + am_engineversion)
                                 return
                 else:
                         if age > 0:
-                                yield Result(state=State.CRIT, summary="RealTime Protection: Enabled, Anti-virus Database: Out-of-Date(!!), AMProductVersion:" + am_productversion + ", AMEngineVersion:" + am_engineversion)
+                                yield Result(state=State.CRIT, summary="RealTime Protection: Enabled, AV database age: " + av_age + " days(!!), AMProductVersion:" + am_productversion + ", AMEngineVersion:" + am_engineversion)
                                 return
                         else:
-                                yield Result(state=State.OK, summary="RealTime Protection: Enabled, Anti-virus Database: Up-to-date, AMProductVersion:" + am_productversion + ", AMEngineVersion:" + am_engineversion)
+                                yield Result(state=State.OK, summary="RealTime Protection: Enabled, AV database age:" + av_age + " days, AMProductVersion:" + am_productversion + ", AMEngineVersion:" + am_engineversion)
                                 return
 
 
