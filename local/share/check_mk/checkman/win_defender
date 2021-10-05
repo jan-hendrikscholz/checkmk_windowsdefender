@@ -1,0 +1,14 @@
+title: Check Windows Defender
+agents: windows
+author: Jan-Hendrik Scholz
+license: GPL
+distribution: none
+description:
+ This check gives visibility on a Windows Defender running on a Windows machine.
+ It does provide data of signature ages, engine and product versions
+
+item:
+ The service name.
+
+inventory:
+ A single check per windows server.
