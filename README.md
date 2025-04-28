@@ -1,7 +1,7 @@
 # checkmk_windowsdefender
-CheckMK 2.0 plugin to monitor Windows Defender on Windows
+CheckMK 2.4 plugin to monitor Windows Defender on Windows
 
-This is basically a port of the plugin, created by [@kevintijssen](https://github.com/kevintijssen/check_mk/tree/master/Windows/Defender) to CheckMK 2.0.
+This is basically a port of the plugin, created by [@kevintijssen](https://github.com/kevintijssen/check_mk/tree/master/Windows/Defender) to CheckMK 2.4.
 
 # Installation
 

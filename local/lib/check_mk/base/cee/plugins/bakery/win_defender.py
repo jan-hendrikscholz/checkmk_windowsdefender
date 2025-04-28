@@ -2,13 +2,16 @@
 
 
 from pathlib import Path
+from typing import Any, Dict
 
 from .bakery_api.v1 import FileGenerator, OS, Plugin, register
-from typing import Any,Dict
+
 
 def get_windowsdefender_files(conf: Dict[str, Any]) -> FileGenerator:
-    yield Plugin(base_os=OS.WINDOWS,
-                 source=Path("win_defender.ps1"))
+    if conf.get("deployment", "do_not_deploy") == "do_not_deploy":
+        return
+    yield Plugin(base_os=OS.WINDOWS, source=Path("win_defender.ps1"))
+
 
 register.bakery_plugin(
     name="win_defender",

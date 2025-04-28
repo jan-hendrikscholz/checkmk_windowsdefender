@@ -5,7 +5,7 @@ license: GPL
 distribution: none
 description:
  This check gives visibility on a Windows Defender running on a Windows machine.
- It does provide data of signature ages, engine and product versions
+ It does provide data of signature ages and engine and product versions
 
 item:
  The service name.
