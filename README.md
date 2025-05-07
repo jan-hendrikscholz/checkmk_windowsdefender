@@ -3,10 +3,10 @@ Checkmk 2.4 plugin to monitor Windows Defender on Windows
 
 This is basically a port of the plugin, created by [@kevintijssen](https://github.com/kevintijssen/check_mk/tree/master/Windows/Defender) to CheckMK 2.4.
 
-Migration to the new Checkmk developer API (shipping with 2.3 and the only way with 2.4+) has been performed by [@rseltmann] from Checkmk. :heart:
-This was done during the dev hour to showcase the necessary changes to extensions for ensuring 2.4+ compatibility.
-You may want to check it out [here](https://www.youtube.com/watch?v=bb4CnEpcKAM)
-Version 1.2 is the first version only compatible with Checkmk 2.3 or later!
+Migration to the new Checkmk developer API (shipping with 2.3 and the only way with 2.4+) has been performed by [@rseltmann] from Checkmk. :heart:  
+This was done during the dev hour to showcase the necessary changes to extensions for ensuring 2.4+ compatibility.  
+You may want to check it out [here](https://www.youtube.com/watch?v=bb4CnEpcKAM)  
+Version 1.2 is the first version only compatible with Checkmk 2.3 or later!  
 
 # Installation
 
