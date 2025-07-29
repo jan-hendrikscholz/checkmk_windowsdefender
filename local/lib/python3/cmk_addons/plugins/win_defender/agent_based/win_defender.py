@@ -16,60 +16,41 @@ def discover_win_defender(section: StringTable) -> DiscoveryResult:
     yield Service(item="Windows Defender")
 
 
-def check_win_defender(item: str, section: StringTable) -> CheckResult:
+def check_win_defender(item: str, params, section: StringTable) -> CheckResult:
+    ignore_rt = params['ignore_realtime']
+    av_age_warn = params['av_definition_age'][1][0]
+    av_age_crit = params['av_definition_age'][1][1]
     for rtprot_status, as_age, av_age, am_productversion, am_engineversion in section:
         as_age = int((as_age.replace(" ", "")), 10)
         av_age = int((av_age.replace(" ", "")), 10)
-        age = 0
-        if as_age > 3:
-            age + 1
-        if av_age > 3:
-            age + 1
-        if rtprot_status == "False":
-            if age > 0:
-                yield Result(
-                    state=State.CRIT,
-                    summary="RealTime Protection: Disabled(!!), AV database age:"
-                    + str(av_age)
-                    + " days(!!), AMProductVersion:"
-                    + am_productversion
-                    + ", AMEngineVersion:"
-                    + am_engineversion,
-                )
-                return
-            else:
-                yield Result(
-                    state=State.CRIT,
-                    summary="RealTime Protection: Disabled(!!), AV database age:"
-                    + str(av_age)
-                    + " days, AMProductVersion:"
-                    + am_productversion
-                    + ", AMEngineVersion:"
-                    + am_engineversion,
-                )
-                return
-        elif age > 0:
-            yield Result(
-                state=State.CRIT,
-                summary="RealTime Protection: Enabled, AV database age: "
-                + str(av_age)
-                + " days(!!), AMProductVersion:"
-                + am_productversion
-                + ", AMEngineVersion:"
-                + am_engineversion,
-            )
-            return
+        age = max(av_age, as_age) # just use the oldest definition
+
+        if age > av_age_crit:
+            mystate=State.CRIT
+            age_msg=f"AV database age: {age} days(!!)"
+        elif age > av_age_warn:
+            mystate=State.WARN
+            age_msg=f"AV database age: {age} days(!)"
         else:
-            yield Result(
-                state=State.OK,
-                summary="RealTime Protection: Enabled, AV database age:"
-                + str(av_age)
-                + " days, AMProductVersion:"
-                + am_productversion
-                + ", AMEngineVersion:"
-                + am_engineversion,
-            )
-            return
+            mystate=State.OK
+            age_msg=f"AV database age: {age} days"
+
+        if rtprot_status == "True":
+            rt_msg=f"RealTime Protection: Enabled"
+        else:
+            if ignore_rt == "True":
+                rt_msg=f"RealTime Protection: Disabled (ignored)(!!)"
+            else:
+                mystate2=State.CRIT
+                rt_msg=f"RealTime Protection: Disabled(!!)"
+
+
+
+        yield Result(
+            state=mystate,
+            summary=f"{rt_msg}, {age_msg}, AMProductVersion: {am_productversion}, AMEngineVersion: {am_engineversion}",
+        )
+        return
 
 
 check_plugin_win_defender = CheckPlugin(
@@ -77,6 +58,9 @@ check_plugin_win_defender = CheckPlugin(
     service_name="%s",
     discovery_function=discover_win_defender,
     check_function=check_win_defender,
+    check_default_parameters = {'av_definition_age': ('fixed', (1.0, 3.0)), 'ignore_realtime': False},
+    check_ruleset_name = "win_defender",
+
 )
 
 
