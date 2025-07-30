@@ -24,7 +24,7 @@ def check_win_defender(item: str, params, section: StringTable) -> CheckResult:
         as_age = int((as_age.replace(" ", "")), 10)
         av_age = int((av_age.replace(" ", "")), 10)
         age = max(av_age, as_age) # just use the oldest definition
-
+        rtprot_status = rtprot_status.strip()
         if age > av_age_crit:
             mystate=State.CRIT
             age_msg=f"AV database age: {age} days(!!)"
