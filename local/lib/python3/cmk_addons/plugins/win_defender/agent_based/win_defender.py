@@ -41,7 +41,7 @@ def check_win_defender(item: str, params, section: StringTable) -> CheckResult:
             if ignore_rt == "True":
                 rt_msg=f"RealTime Protection: Disabled (ignored)(!!)"
             else:
-                mystate2=State.CRIT
+                mystate=State.CRIT
                 rt_msg=f"RealTime Protection: Disabled(!!)"
 
 
